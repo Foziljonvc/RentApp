@@ -5,45 +5,76 @@ declare(strict_types=1);
 namespace Shohjahon\RentApp;
 
 use JetBrains\PhpStorm\NoReturn;
-use PDO;
 
 class Router
 {
-    private PDO $pdo;
+    protected object|null $updates;
 
     public function __construct()
     {
-        $this->pdo = DB::connect();
+        $this->updates = json_decode(file_get_contents('php://input'));
     }
 
-    public function get($path, $callback): void
+    public function getResourceName(): string
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === $path) {
+        $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path = explode('/', $uri);
+        return $path[count($path) - 2];
+    }
+
+    public function getResourceId(): false|int
+    {
+        $uri        = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path       = explode('/', $uri);
+        $resourceId = $path[count($path) - 1];
+
+        return is_numeric($resourceId) ? (int) $resourceId : false;
+    }
+
+    public function sendResponse($data): void
+    {
+        header("Content-Type: application/json; charset=UTF-8");
+
+        echo json_encode($data);
+    }
+
+    public function getUpdates()
+    {
+        return $this->updates;
+    }
+
+    public static function get($path, $callback): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ((new self())->getResourceId()) {
+                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    $callback((new self())->getResourceId());
+                    exit();
+                }
+            }
+            if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                $callback();
+                exit();
+            }
+        }
+    }
+
+    public static function post($path, $callback): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
             $callback();
             exit();
         }
     }
 
-    public function post($path, $callback): void
+    #[NoReturn] public static function errorResponse(int $code, $message = 'Error bad request'): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === $path) {
-            $callback();
-            exit();
+        http_response_code($code);
+        if ($code == 404) {
+            loadView('404');
         }
-    }
-
-    public function getAds(): false|array
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM ads");
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    #[NoReturn] public function notFount(string $path): void
-    {
-        http_response_code(response_code: 404);
-        location($path);
+//        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
         exit();
     }
 }
