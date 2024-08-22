@@ -1,7 +1,11 @@
 <?php
 
-namespace Shohjahon\RentApp;
+declare(strict_types=1);
+
+namespace App;
+
 use PDO;
+
 class Image
 {
     private PDO $pdo;
@@ -26,12 +30,12 @@ class Image
     {
         // Check if file uploaded
         if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-            exit('Error: '.$_FILES['image']['error']);
+            return 'NotFoundImage.png';
         }
 
         // Extract file name and path
-        $name       = $_FILES['image']['name'];
-        $path       = $_FILES['image']['tmp_name'];
+        $name = $_FILES['image']['name'];
+        $path = $_FILES['image']['tmp_name'];
         $uploadPath = basePath("/public/assets/images/ads");
 
         // Check if upload directory exists
@@ -40,7 +44,7 @@ class Image
         }
 
         // Rename filename
-        $fileName     = uniqid().'___'.$name;
+        $fileName = uniqid() . '___' . $name;
         $fullFilePath = "$uploadPath/$fileName";
 
         // Upload file

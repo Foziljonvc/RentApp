@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.39, for linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.3.0, for macos14.2 (arm64)
 --
--- Host: localhost    Database: RentApp
+-- Host: localhost    Database: ntra
 -- ------------------------------------------------------
--- Server version	8.0.39-0ubuntu0.22.04.1
+-- Server version	8.3.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,25 +23,24 @@ DROP TABLE IF EXISTS `ads`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ads` (
-                       `id` int NOT NULL AUTO_INCREMENT,
-                       `title` varchar(255) DEFAULT NULL,
-                       `description` text COMMENT 'Content of the post',
-                       `user_id` int DEFAULT NULL,
-                       `status_id` int DEFAULT NULL,
-                       `branch_id` int DEFAULT NULL,
-                       `price` float DEFAULT NULL,
-                       `rooms` int DEFAULT NULL,
-                       `created_at` timestamp NULL DEFAULT NULL,
-                       `address` varchar(255) DEFAULT NULL,
-                       `updated_at` timestamp NULL DEFAULT NULL,
-                       PRIMARY KEY (`id`),
-                       KEY `ads_ibfk_1` (`user_id`),
-                       KEY `ads_ibfk_3` (`branch_id`),
-                       KEY `ads_ibfk_2` (`status_id`),
-                       CONSTRAINT `ads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                       CONSTRAINT `ads_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
-                       CONSTRAINT `ads_ibfk_3` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `user_id` int DEFAULT NULL,
+  `status_id` int DEFAULT NULL,
+  `branch_id` int DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `rooms` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ads_status` (`status_id`),
+  KEY `ads_branch` (`branch_id`),
+  KEY `ads_user` (`user_id`),
+  CONSTRAINT `ads_branch` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`),
+  CONSTRAINT `ads_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
+  CONSTRAINT `ads_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +49,6 @@ CREATE TABLE `ads` (
 
 LOCK TABLES `ads` WRITE;
 /*!40000 ALTER TABLE `ads` DISABLE KEYS */;
-INSERT INTO `ads` VALUES (1,'title','desc',2,1,1,100,4,'2024-08-10 09:22:44','Chilonzor',NULL);
 /*!40000 ALTER TABLE `ads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,12 +60,12 @@ DROP TABLE IF EXISTS `branch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `branch` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `name` varchar(255) DEFAULT NULL,
-                          `address` varchar(255) DEFAULT NULL,
-                          `created_at` timestamp NULL DEFAULT NULL,
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +74,6 @@ CREATE TABLE `branch` (
 
 LOCK TABLES `branch` WRITE;
 /*!40000 ALTER TABLE `branch` DISABLE KEYS */;
-INSERT INTO `branch` VALUES (1,'Farg\'ona','Farg\'ona, Farg\'ona 1','2024-08-10 05:24:44'),(2,'Farg\'ona','Farg\'ona, Farg\'ona 1','2024-08-10 05:26:06'),(3,'Farg\'ona','Farg\'ona, Farg\'ona 1','2024-08-10 05:28:13'),(4,'Farg\'ona','Farg\'ona, Farg\'ona 1','2024-08-10 05:32:16'),(5,'Farg\'ona','Farg\'ona, Farg\'ona 1','2024-08-10 09:22:44');
 /*!40000 ALTER TABLE `branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,11 +85,10 @@ DROP TABLE IF EXISTS `status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `status` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `name` varchar(255) DEFAULT NULL,
-                          `created_at` timestamp NULL DEFAULT NULL,
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,9 +97,9 @@ CREATE TABLE `status` (
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
-INSERT INTO `status` VALUES (1,'Active', NULL),(2,'Active','2024-08-10 05:32:16'),(3,'Active','2024-08-10 09:22:44');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
+
 --
 -- Table structure for table `users`
 --
@@ -112,16 +108,16 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `username` varchar(255) DEFAULT NULL,
-                         `position` varchar(255) DEFAULT NULL,
-                         `gender` enum('male','female') DEFAULT NULL,
-                         `phone` varchar(255) DEFAULT NULL,
-                         `created_at` timestamp NULL DEFAULT NULL,
-                         `updated_at` timestamp NULL DEFAULT NULL,
-                         PRIMARY KEY (`id`),
-                         UNIQUE KEY `users_pk` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT NULL,
+  `position` varchar(255) DEFAULT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_pk` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +126,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (2,'Abdurashid','Junior','male','+993134262',NULL, NULL);
+INSERT INTO `users` VALUES (5,'Bekzodbro','batman','male','7777777777','2024-08-08 14:19:10','2024-08-08 14:26:36'),(6,'Nasriddinbro','pahan','male','998997777778','2024-08-08 14:40:39',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -143,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-16  5:45:09
+-- Dump completed on 2024-08-08 20:17:12

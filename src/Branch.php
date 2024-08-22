@@ -1,6 +1,8 @@
 <?php
 
-namespace Shohjahon\RentApp;
+declare(strict_types=1);
+
+namespace App;
 
 class Branch
 {

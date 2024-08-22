@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shohjahon\RentApp;
+namespace App;
 
 use PDO;
 
@@ -33,13 +33,12 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getUser(int $id)
+    public function getUser(int $id): void
     {
         $query = "SELECT * FROM users WHERE id = :id";
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function updateUser(
@@ -66,5 +65,15 @@ class User
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
+    }
+
+    public function checkUser(string $username, string $password): false|array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shohjahon\RentApp;
-
-use JetBrains\PhpStorm\NoReturn;
+namespace App;
 
 class Router
 {
@@ -15,12 +13,12 @@ class Router
         $this->updates = json_decode(file_get_contents('php://input'));
     }
 
-    public function getResourceName(): string
+    public function getResourceName()
     {
         $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $path = explode('/', $uri);
         return $path[count($path) - 2];
-    }
+    }                                       
 
     public function getResourceId(): false|int
     {
@@ -62,13 +60,13 @@ class Router
 
     public static function post($path, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === $path) {
             $callback();
             exit();
         }
     }
 
-    #[NoReturn] public static function errorResponse(int $code, $message = 'Error bad request'): void
+    public static function errorResponse(int $code, $message = 'Error bad request'): void
     {
         http_response_code($code);
         if ($code == 404) {
@@ -76,5 +74,13 @@ class Router
         }
 //        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
         exit();
+    }
+
+    public static function checkUser(): void
+    {
+        if (isset($_SESSION['username']) && !isset($_SESSION['password'])) {
+            redirect('/');
+        }
+        redirect('/login');
     }
 }

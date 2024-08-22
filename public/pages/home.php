@@ -1,21 +1,22 @@
 <?php
 
-loadPartials('header');
-loadPartials('navbar');
+loadPartials("header");
+loadPartials("navbar");
 ?>
-    <!-- Start -->
+
+
     <section class="relative lg:py-24 py-16">
         <div class="container relative">
             <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
 
                 <?php
                 /**
-                 * @var $ads
+                 * @var  $ads
                  */
-                foreach ($ads as $ad):?>
+                foreach ($ads as $ad): ?>
                     <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                         <div class="relative">
-                            <img src="assets/images/property/1.jpg" alt="">
+                            <img src="../assets/images/ads/<?php echo $ad->image; ?>" alt="">
 
                             <div class="absolute top-4 end-4">
                                 <a href="javascript:void(0)"
@@ -27,7 +28,7 @@ loadPartials('navbar');
                         <div class="p-6">
                             <div class="pb-6">
                                 <a href="/ads/<?= $ad->id ?>"
-                                   class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $ad->title; ?></a>
+                                   class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $ad->title ?></a>
                             </div>
 
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
@@ -50,18 +51,17 @@ loadPartials('navbar');
                             <ul class="pt-6 flex justify-between items-center list-none">
                                 <li>
                                     <span class="text-slate-400">Price</span>
-                                    <p class="text-lg font-medium">$ <?= $ad->price ?></p>
+                                    <p class="text-lg font-medium"><?= $ad->price ?></p>
                                 </li>
-
                             </ul>
                         </div>
                     </div><!--end property content-->
-                <?php
-                endforeach; ?>
-            </div><!--en grid-->
 
-        </div><!--end container-->
+                <?php endforeach; ?>
+
+            </div><!--end container-->
     </section><!--end section-->
-    <!-- End -->
+
+
 <?php
-loadPartials('footer');
+loadPartials("footer");

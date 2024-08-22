@@ -16,13 +16,7 @@ if ($_POST['title']
     && $_POST['rooms']
 ) {
 
-
-    // 1. Store Ad
-    // 2. Upload Image
-    // 3. Store Image(adId, name)
-    // 4 .Redirect
-
-    $newAdsId = (new \Shohjahon\RentApp\Ads())->createAds(
+    $newAdsId = (new \App\Ads())->createAds(
         $title,
         $description,
         5,
@@ -34,7 +28,7 @@ if ($_POST['title']
     );
 
     if ($newAdsId) {
-        $imageHandler = new \Shohjahon\RentApp\Image();
+        $imageHandler = new \App\Image();
         $fileName     = $imageHandler->handleUpload();
 
         if (!$fileName) {

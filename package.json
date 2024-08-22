@@ -1,9 +1,11 @@
 {
-  "devDependencies": {
-    "tailwindcss": "^3.4.10"
-  },
-
   "scripts": {
-    "tailwind" : "npx tailwindcss -i public/style/core.css -o public/style/main.css --watch"
+    "tailwind": "npx tailwindcss -i ./public/styles/core.css -o ./public/styles/main.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.9"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.7"
   }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shohjahon\RentApp;
+namespace App;
 
 use PDO;
 

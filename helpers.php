@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Ads;
+use JetBrains\PhpStorm\NoReturn;
 
 function dd($args)
 {
@@ -19,12 +20,12 @@ function getAds(): false|array
 
 function basePath(string $path): string
 {
-    return __DIR__.$path;
+    return __DIR__ . $path;
 }
 
 function loadView(string $path, array|null $args = null): void
 {
-    $filePath = basePath('/public/pages/'.$path.'.php');
+    $filePath = basePath('/public/pages/' . $path . '.php');
     if (!file_exists($filePath)) {
         echo "Required view not found: $filePath";
         return;
@@ -33,6 +34,7 @@ function loadView(string $path, array|null $args = null): void
     if (is_array($args)) {
         extract($args);
     }
+
     require $filePath;
 }
 
@@ -41,7 +43,7 @@ function loadPartials(string $path, array|null $args = null): void
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/public/partials/'.$path.'.php');
+    require basePath('/public/partials/' . $path . '.php');
 }
 
 function loadController(string $path, array|null $args = null): void
@@ -49,5 +51,11 @@ function loadController(string $path, array|null $args = null): void
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/controllers/'.$path.'.php');
+    require basePath('/controllers/' . $path . '.php');
+}
+
+#[NoReturn] function redirect(string $url): void
+{
+    header('location: ' . $url);
+    exit();
 }
