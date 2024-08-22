@@ -14,13 +14,38 @@ loadPartials('header');
                 <form class="text-start">
                     <div class="grid grid-cols-1">
                         <div class="mb-4">
-                            <label class="font-medium" for="LoginEmail">Email Address:</label>
-                            <input id="LoginEmail" type="email" class="form-input mt-3" placeholder="name@example.com">
+                            <label class="font-medium" for="LoginEmail">Username:</label>
+                            <input name="username" id="LoginEmail" type="text" class="form-input mt-3" placeholder="Username:" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="font-medium" for="PositionSelect">Position:</label>
+                            <select name="position" id="PositionSelect" class="form-input mt-3" required>
+                                <option value="" disabled selected>Select your position</option>
+                                <option value="manager">Manager</option>
+                                <option value="developer">Developer</option>
+                                <option value="designer">Designer</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="font-medium" for="LoginEmail">Gender:</label>
+                            <select name="gender" id="LoginEmail" class="form-input mt-3" required>
+                                <option value="" disabled selected>Select your gender</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="font-medium" for="LoginEmail">Phone:</label>
+                            <input name="phone" id="LoginEmail" type="number" class="form-input mt-3" placeholder="+998 *** ** ** ">
                         </div>
 
                         <div class="mb-4">
                             <label class="font-medium" for="LoginPassword">Password:</label>
-                            <input id="LoginPassword" type="password" class="form-input mt-3" placeholder="Password:">
+                            <input name="password" id="LoginPassword" type="password" class="form-input mt-3" placeholder="Password:">
                         </div>
 
                         <div class="flex justify-between mb-4">
@@ -51,14 +76,14 @@ loadPartials('header');
 
 <!-- Switcher -->
 <div class="fixed top-1/4 -left-2 z-3">
-            <span class="relative inline-block rotate-90">
-                <input type="checkbox" class="checkbox opacity-0 absolute" id="chk" />
-                <label class="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-700 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8" for="chk">
-                    <i class="uil uil-moon text-[20px] text-yellow-500 mt-1"></i>
-                    <i class="uil uil-sun text-[20px] text-yellow-500 mt-1"></i>
-                    <span class="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] start-[2px] size-7"></span>
-                </label>
-            </span>
+    <span class="relative inline-block rotate-90">
+        <input type="checkbox" class="checkbox opacity-0 absolute" id="chk" />
+        <label class="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-700 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8" for="chk">
+            <i class="uil uil-moon text-[20px] text-yellow-500 mt-1"></i>
+            <i class="uil uil-sun text-[20px] text-yellow-500 mt-1"></i>
+            <span class="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] start-[2px] size-7"></span>
+        </label>
+    </span>
 </div>
 <!-- Switcher -->
 

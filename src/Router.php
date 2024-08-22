@@ -78,9 +78,8 @@ class Router
 
     public static function checkUser(): void
     {
-        if (isset($_SESSION['username']) && !isset($_SESSION['password'])) {
-            redirect('/');
+        if (!isset($_SESSION['username']) && !isset($_SESSION['password'])) {
+            redirect('/login');
         }
-        redirect('/login');
     }
 }

@@ -207,7 +207,22 @@
             reader.readAsDataURL(uploadedFile);
         }
     };
+
+    function initializeFormInteraction() {
+        const formElements = document.querySelectorAll('input, select, textarea');
+
+        formElements.forEach((element) => {
+            element.addEventListener('mouseover', () => {
+                element.focus();
+            });
+
+            element.addEventListener('mouseout', () => {
+                element.blur();
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeFormInteraction);
 </script>
-<!-- JAVASCRIPTS -->
 </body>
 </html>
