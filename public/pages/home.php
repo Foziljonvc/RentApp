@@ -51,7 +51,7 @@ loadPartials("navbar");
                             <ul class="pt-6 flex justify-between items-center list-none">
                                 <li>
                                     <span class="text-slate-400">Price</span>
-                                    <p class="text-lg font-medium"><?= $ad->price ?></p>
+                                    <p class="text-lg font-medium">$ <?= $ad->price ?></p>
                                 </li>
                             </ul>
                         </div>

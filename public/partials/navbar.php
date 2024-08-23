@@ -25,6 +25,9 @@
         <?php if(isset($_SESSION['username']) && isset($_SESSION['password'])): ?>
         <ul class="buy-button list-none mb-0">
             <li class="sm:inline ps-1 mb-0 hidden">
+                <i><b><?= $_SESSION['username']; ?></b></i>
+            </li>
+            <li class="sm:inline ps-1 mb-0 hidden">
                 <a href="/logOut" class="btn bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full">Log out</a>
             </li>
         </ul>

@@ -10,10 +10,10 @@ loadPartials('header');
                 <div class="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-700 rounded-md">
                     <a href="/"><img src="../assets/images/logo-icon-64.png" class="mx-auto" alt=""></a>
                     <h5 class="my-6 text-xl font-semibold text-center">Login</h5>
-                    <?php if (isset($_SESSION['error'])): ?>
+                    <?php if (isset($_SESSION['error_login'])): ?>
                         <div class="bg-red-100 dark:bg-red-800 border border-red-400 dark:border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded relative" role="alert">
                             <strong class="font-bold">Error:</strong>
-                            <span class="block sm:inline"><?= $_SESSION['error']; ?></span>
+                            <span class="block sm:inline"><?= $_SESSION['error_login']; ?></span>
                         </div>
                     <?php endif; ?>
                     <form class="text-start" action="/loginAd" method="post">

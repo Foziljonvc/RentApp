@@ -19,15 +19,18 @@ class User
         string $username,
         string $position,
         string $gender,
-        string $phone
+        string $phone,
+        string $password
     ): false|array {
-        $query = "INSERT INTO users (username, position, gender, phone, created_at)
-                  VALUES (:username, :position, :gender, :phone, NOW())";
+        $query = "INSERT INTO users (username, position, gender, phone, created_at, password)
+                  VALUES (:username, :position, :gender, :phone, NOW(), :password)";
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':position', $position);
         $stmt->bindParam(':gender', $gender);
         $stmt->bindParam(':phone', $phone);
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $password);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -67,13 +70,26 @@ class User
         $stmt->execute();
     }
 
-    public function checkUser(string $username, string $password): false|array
+    public function checkUserLogin(string $username, string $password): bool
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $password);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (password_verify($password, $result['password'])) {
+            return true;
+        }
+        return false;
+
+    }
+    public function checkUserRegister(string $phone)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE phone = :phone");
+        $stmt->bindParam(':phone', $phone);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 }

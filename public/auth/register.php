@@ -11,11 +11,17 @@ loadPartials('header');
             <div class="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-700 rounded-md">
                 <a href="/"><img src="../assets/images/logo-icon-64.png" class="mx-auto" alt=""></a>
                 <h5 class="my-6 text-xl font-semibold text-center">Register</h5>
-                <form class="text-start">
+                <?php if (isset($_SESSION['error_register'])): ?>
+                    <div class="bg-red-100 dark:bg-red-800 border border-red-400 dark:border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Error:</strong>
+                        <span class="block sm:inline"><?= $_SESSION['error_register']; ?></span>
+                    </div>
+                <?php endif; ?>
+                <form class="text-start" method="post" action="/registerAd">
                     <div class="grid grid-cols-1">
                         <div class="mb-4">
-                            <label class="font-medium" for="LoginEmail">Username:</label>
-                            <input name="username" id="LoginEmail" type="text" class="form-input mt-3" placeholder="Username:" required>
+                            <label class="font-medium" for="LoginUsername">Username:</label>
+                            <input name="username" id="LoginUsername" type="text" class="form-input mt-3" placeholder="Username:" required>
                         </div>
 
                         <div class="mb-4">
@@ -30,8 +36,8 @@ loadPartials('header');
                         </div>
 
                         <div class="mb-4">
-                            <label class="font-medium" for="LoginEmail">Gender:</label>
-                            <select name="gender" id="LoginEmail" class="form-input mt-3" required>
+                            <label class="font-medium" for="LoginGender">Gender:</label>
+                            <select name="gender" id="LoginGender" class="form-input mt-3" required>
                                 <option value="" disabled selected>Select your gender</option>
                                 <option value="female">Female</option>
                                 <option value="male">Male</option>
@@ -39,8 +45,8 @@ loadPartials('header');
                         </div>
 
                         <div class="mb-4">
-                            <label class="font-medium" for="LoginEmail">Phone:</label>
-                            <input name="phone" id="LoginEmail" type="number" class="form-input mt-3" placeholder="+998 *** ** ** ">
+                            <label class="font-medium" for="LoginPhone">Phone:</label>
+                            <input name="phone" id="LoginPhone" type="number" class="form-input mt-3" placeholder="+998 *** ** ** ">
                         </div>
 
                         <div class="mb-4">
@@ -57,7 +63,9 @@ loadPartials('header');
                         </div>
 
                         <div class="mb-4">
-                            <a href="" class="btn bg-green-600 hover:bg-green-700 text-white rounded-md w-full">Login / Sign in</a>
+                            <button class="btn bg-green-600 hover:bg-green-700 text-white rounded-md w-full">
+                                Login / Sign in
+                            </button>
                         </div>
 
                         <div class="text-center">
