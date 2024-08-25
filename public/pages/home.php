@@ -4,7 +4,6 @@ loadPartials("header");
 loadPartials("navbar");
 ?>
 
-
     <section class="relative lg:py-24 py-16">
         <div class="container relative">
             <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
@@ -61,7 +60,6 @@ loadPartials("navbar");
 
             </div><!--end container-->
     </section><!--end section-->
-
 
 <?php
 loadPartials("footer");

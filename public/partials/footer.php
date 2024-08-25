@@ -39,7 +39,7 @@
                     <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px] -mt-24">
                         <div class="lg:col-span-4 md:col-span-12">
                             <a href="#" class="text-[22px] focus:outline-none">
-                                <img src="assets/images/logo-light.png" alt="">
+                                <img src="../assets/images/logo-light.png" alt="">
                             </a>
                             <p class="mt-6 text-gray-300">A great plateform to buy, sell and rent your properties
                                 without any agent or commisions.</p>
@@ -201,7 +201,7 @@
             const reader = new FileReader();
             reader.onload = () => {
                 const parent = document.querySelector('.preview-box');
-                parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                parent.innerHTML = `<img class="preview-content" src=${reader.result}  alt=""/>`;
             };
 
             reader.readAsDataURL(uploadedFile);
@@ -224,5 +224,3 @@
 
     document.addEventListener('DOMContentLoaded', initializeFormInteraction);
 </script>
-</body>
-</html>

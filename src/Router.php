@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class Router
 {
     protected object|null $updates;
@@ -13,7 +15,7 @@ class Router
         $this->updates = json_decode(file_get_contents('php://input'));
     }
 
-    public function getResourceName()
+    public function getResourceName(): string
     {
         $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $path = explode('/', $uri);
@@ -66,20 +68,13 @@ class Router
         }
     }
 
-    public static function errorResponse(int $code, $message = 'Error bad request'): void
+    #[NoReturn] public static function errorResponse(int $code, $message = 'Error bad request'): void
     {
         http_response_code($code);
         if ($code == 404) {
             loadView('404');
         }
-//        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
         exit();
     }
 
-    public static function checkUser(): void
-    {
-        if (!isset($_SESSION['username']) && !isset($_SESSION['password'])) {
-            redirect('/login');
-        }
-    }
 }

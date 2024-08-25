@@ -1,7 +1,6 @@
 <nav id="topnav" class="defaultscroll is-sticky">
     <div class="container relative">
-        <!-- Start Logo container-->
-        <a class="logo" href="/">
+        <a class="logo" href="/dashboard">
                     <span class="inline-block dark:hidden">
                         <img src="../assets/images/logo-dark.png" class="l-dark" height="28" alt="">
                         <img src="../assets/images/logo-light.png" class="l-light" height="28" alt="">
@@ -141,7 +140,7 @@
                 </li>
 
                 <li><a href="/ads/create" class="sub-menu-item">Create_ads</a></li>
-                <li><a href="buy.html" class="sub-menu-item">Buy</a></li>
+                <li><a href="/dashboard" class="sub-menu-item">Buy</a></li>
 
                 <li><a href="sell.html" class="sub-menu-item">Sell</a></li>
 

@@ -20,12 +20,12 @@ loadPartials('header');
                         <div class="grid grid-cols-1">
                             <div class="mb-4">
                                 <label class="font-medium" for="Username">Username:</label>
-                                <input name="username" id="Username" type="text" class="form-input mt-3" placeholder="Username:" required>
+                                <input name="username" id="Username" type="text" class="form-input mt-3" placeholder="Username:">
                             </div>
 
                             <div class="mb-4">
                                 <label class="font-medium" for="LoginPassword">Password:</label>
-                                <input name="password" id="LoginPassword" type="password" class="form-input mt-3" placeholder="Password:" required>
+                                <input name="password" id="LoginPassword" type="password" class="form-input mt-3" placeholder="Password:">
                             </div>
 
                             <div class="flex justify-between mb-4">

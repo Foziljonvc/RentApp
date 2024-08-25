@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use JetBrains\PhpStorm\NoReturn;
 use PDO;
 
 class Ads
@@ -97,7 +98,7 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function deleteAds(int $id): void
+    #[NoReturn] public function deleteAds(int $id): void
     {
         $query = "DELETE FROM ads WHERE id = :id";
         $stmt = $this->pdo->prepare($query);

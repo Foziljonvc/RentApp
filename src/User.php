@@ -12,7 +12,7 @@ class User
 
     public function __construct()
     {
-        $this->pdo = Db::connect();
+        $this->pdo = DB::connect();
     }
 
     public function createUser(
@@ -44,6 +44,14 @@ class User
         $stmt->execute();
     }
 
+    public function getByUser(string $username)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function updateUser(
         int    $id,
         string $username,
@@ -68,28 +76,6 @@ class User
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-    }
-
-    public function checkUserLogin(string $username, string $password): bool
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (password_verify($password, $result['password'])) {
-            return true;
-        }
-        return false;
-
-    }
-    public function checkUserRegister(string $phone)
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE phone = :phone");
-        $stmt->bindParam(':phone', $phone);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }
