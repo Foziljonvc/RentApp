@@ -111,7 +111,7 @@ Router::get('/dashboard', function () {
     if (!isset($_SESSION['username'])) {
         redirect('/login');
     }
-    loadView('dashboard/Admin');
+    require basePath('/resources/view/pages/profile.php');
 });
 
 Router::errorResponse(404, 'Not Found');

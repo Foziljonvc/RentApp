@@ -223,4 +223,20 @@
     }
 
     document.addEventListener('DOMContentLoaded', initializeFormInteraction);
+    document.addEventListener('DOMContentLoaded', function () {
+
+    const slider = tns({
+        container: '.tiny-one-item',
+        items: 1,
+        slideBy: 'page',
+        autoplay: true,
+        autoplayButtonOutput: false,
+        controls: false,
+        nav: true,
+        navPosition: 'bottom',
+        speed: 500,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true
+    });
+    });
 </script>

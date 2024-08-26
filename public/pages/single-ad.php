@@ -18,8 +18,8 @@ loadPartials('navbar');
                     <div class="tiny-one-item">
                         <div class="tiny-slide">
                             <img src="../assets/images/ads/<?= $ad->image ?>"
-                                 class="rounded-md shadow dark:shadow-gray-700" alt="">clear
-                            
+                                 class="rounded-md shadow dark:shadow-gray-700" alt="">
+
                         </div>
 
                         <div class="tiny-slide">
