@@ -124,12 +124,14 @@ loadPartials('navbar');
                                class="btn bg-transparent hover:bg-green-600 border border-green-600 text-green-600 hover:text-white rounded-md"><i
                                         class="uil uil-phone align-middle me-2"></i> Contact us</a>
                         </div>
+                        <?php if (isset($_SESSION['username'])): ?>
                         <div class="mt-6">
                             <a href="/delete?id=<?= $ad->id; ?>"
                                class="btn bg-transparent hover:bg-red-600 border border-red-600 text-red-600 hover:text-white rounded-md">
                                 Delete Ad
                             </a>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

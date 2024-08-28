@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Shohjahon\RentSrc;
 
 enum Roles: int
 {

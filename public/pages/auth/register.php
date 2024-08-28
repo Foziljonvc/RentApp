@@ -9,7 +9,7 @@ loadPartials('header');
     <div class="container relative z-3">
         <div class="flex justify-center">
             <div class="max-w-[400px] w-full m-auto p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-700 rounded-md">
-                <a href="/"><img src="../assets/images/logo-icon-64.png" class="mx-auto" alt=""></a>
+                <a href="/"><img src="../../assets/images/logo-icon-64.png" class="mx-auto" alt=""></a>
                 <h5 class="my-6 text-xl font-semibold text-center">Register</h5>
                 <?php if (isset($_SESSION['error_register'])): ?>
                     <div class="bg-red-100 dark:bg-red-800 border border-red-400 dark:border-red-500 text-red-700 dark:text-red-300 px-4 py-3 rounded relative" role="alert">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Shohjahon\RentSrc;
 use PDO;
 
 class Auth
@@ -26,7 +26,9 @@ class Auth
             if ($userWithRoles[0]['role_id'] == Roles::ADMIN->value) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['password'] = $user['password'];
-                redirect('/dashboard');
+                $_SESSION['id'] = $user['id'];
+                $_SESSION['role_id'] = $userWithRoles[0]['role_id'];
+                redirect('/profile');
             }
             return true;
         }

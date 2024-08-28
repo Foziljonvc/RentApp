@@ -1,6 +1,6 @@
 <nav id="topnav" class="defaultscroll is-sticky">
     <div class="container relative">
-        <a class="logo" href="/dashboard">
+        <a class="logo" href="/profile">
                     <span class="inline-block dark:hidden">
                         <img src="../assets/images/logo-dark.png" class="l-dark" height="28" alt="">
                         <img src="../assets/images/logo-light.png" class="l-light" height="28" alt="">
