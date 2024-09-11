@@ -38,11 +38,18 @@
 <!-- LTR & RTL Mode Code -->
 
 <!-- JAVASCRIPTS -->
-<script src="../../assets/libs/tobii/js/tobii.min.js"></script>
-<script src="../../assets/libs/feather-icons/feather.min.js"></script>
-<script src="../../assets/libs/simplebar/simplebar.min.js"></script>
-<script src="../../assets/js/plugins.init.js"></script>
-<script src="../../assets/js/app.js"></script>
+<script src="/dashboard/assets/libs/tobii/js/tobii.min.js"></script>
+<script src="/dashboard/assets/libs/feather-icons/feather.min.js"></script>
+<script src="/dashboard/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="/dashboard/assets/js/plugins.init.js"></script>
+<script src="/dashboard/assets/js/app.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if (!isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])): ?>
+        document.querySelector('.page-wrapper').classList.remove('toggled');
+        <?php endif; ?>
+    });
+</script>
 <!-- JAVASCRIPTS -->
 </body>
 </html>

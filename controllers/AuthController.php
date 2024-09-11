@@ -24,6 +24,10 @@ class AuthController
             if (!isset($_SESSION['username'])) {
                 redirect('/login');
             }
+        } elseif ($middleware === 'admin') {
+            if (!isset($_SESSION['username'])) {
+                redirect('/login');
+            }
         }
     }
 
@@ -67,4 +71,5 @@ class AuthController
         session_destroy();
         redirect('/login');
     }
+
 }

@@ -1,11 +1,11 @@
 <nav id="topnav" class="defaultscroll is-sticky">
     <div class="container relative">
-        <a class="logo" href="/profile">
+        <a class="logo" href="/">
                     <span class="inline-block dark:hidden">
-                        <img src="../assets/images/logo-dark.png" class="l-dark" height="28" alt="">
-                        <img src="../assets/images/logo-light.png" class="l-light" height="28" alt="">
+                        <img src="/assets/images/logo-dark.png" class="l-dark" height="28" alt="">
+                        <img src="/assets/images/logo-light.png" class="l-light" height="28" alt="">
                     </span>
-            <img src="../assets/images/logo-light.png" height="28" class="hidden dark:inline-block" alt="">
+            <img src="../../public/assets/images/logo-light.png" height="28" class="hidden dark:inline-block" alt="">
         </a>
 
         <div class="menu-extras">
@@ -21,13 +21,20 @@
         </div>
 
         <!-- Don't have in SESSION -->
-        <?php if(isset($_SESSION['username']) && isset($_SESSION['password'])): ?>
+        <?php if((new \Shohjahon\RentSrc\Session())->checkSession()): ?>
         <ul class="buy-button list-none mb-0">
             <li class="sm:inline ps-1 mb-0 hidden">
-                <i><b><?= $_SESSION['username']; ?></b></i>
+                <i><b><?= (new \Shohjahon\RentSrc\Session())->getSession()['username']; ?></b></i>
             </li>
             <li class="sm:inline ps-1 mb-0 hidden">
                 <a href="/logOut" class="btn bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full">Log out</a>
+            </li>
+        </ul>
+        <?php endif; ?>
+        <?php if (!(new \Shohjahon\RentSrc\Session())->checkSession()): ?>
+        <ul class="buy-button list-none mb-0">
+            <li class="sm:inline ps-1 mb-0 hidden">
+                <a href="/login" class="btn bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full">login</a>
             </li>
         </ul>
         <?php endif; ?>
@@ -45,92 +52,8 @@
                                 <li>
                                     <a href="/" class="sub-menu-item">
                                         <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-one.png" class="img-fluid rounded shadow-md" alt=""></span>
+                                            <span class="none lg:block"><img src="../../public/assets/images/ads/main/homePage.png" class="img-fluid rounded shadow-md" alt=""></span>
                                             <span class="lg:mt-2 block">Hero One</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-two.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-two.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Two</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-three.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-three.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Three</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-four.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-four.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Four</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-five.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-five.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Five</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-six.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-six.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Six</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-seven.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-seven.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Seven</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-eight.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-eight.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Eight</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-nine.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-nine.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Nine <span class="bg-yellow-500 inline-block text-white text-[10px] font-bold px-2.5 py-0.5 rounded h-5 ms-1">New</span></span>
                                         </div>
                                     </a>
                                 </li>
@@ -186,7 +109,7 @@
                         <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Agencies</a><span class="submenu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="agencies.html" class="sub-menu-item">Agencies</a></li>
-                                <li><a href="agency-profile.html" class="sub-menu-item">Agency Profile</a></li>
+                                <li><a href="/profile" class="sub-menu-item">Agency Profile</a></li>
                             </ul>
                         </li>
                         <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Auth Pages </a><span class="submenu-arrow"></span>

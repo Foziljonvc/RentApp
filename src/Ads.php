@@ -16,16 +16,7 @@ class Ads
         $this->pdo = DB::connect();
     }
 
-    public function createAds(
-        string $title,
-        string $description,
-        int    $user_id,
-        int    $status_id,
-        int    $branch_id,
-        string $address,
-        float  $price,
-        int    $rooms,
-    ): false|string
+    public function createAds(string $title, string $description, int $user_id, int $status_id, int $branch_id, string $address, float $price, int $rooms): false|string
     {
         $query = "INSERT INTO ads (title, description, user_id, status_id, branch_id, address, price, rooms, created_at) 
                   VALUES (:title, :description, :user_id, :status_id, :branch_id, :address, :price, :rooms, NOW())";
@@ -48,7 +39,7 @@ class Ads
     {
         $query = "SELECT ads.*, name AS image
                   FROM ads
-                    JOIN ads_image ON ads.id = ads_image.ads_id
+                    LEFT JOIN ads_image ON ads.id = ads_image.ads_id
                   WHERE ads.id = :id";
 
         $stmt = $this->pdo->prepare($query);
@@ -68,8 +59,6 @@ class Ads
     }
     public function getUsersAds(int $userId): false|array
     {
-        $userId = 5;
-
         $query = "SELECT *, ads.id AS id, ads.address AS address, ads_image.name AS image
                   FROM ads
                     JOIN branch ON branch.id = ads.branch_id
@@ -78,24 +67,13 @@ class Ads
         return $this->pdo->query($query)->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function updateAds(
-        int    $id,
-        string $title,
-        string $description,
-        int    $user_id,
-        int    $status_id,
-        int    $branch_id,
-        string $address,
-        float  $price,
-        int    $rooms
-    )
+    public function updateAds(string $title, string $description, int $user_id, int $status_id, int $branch_id, string $address, float $price, int $rooms, int $id): bool
     {
         $query = "UPDATE ads SET title = :title, description = :description, user_id = :user_id,
-                 status_id = :status_id, branch_id = :branch_id, address = :address, 
-                 price = :price, rooms = :rooms, updated_at = NOW() WHERE id = :id";
+                  status_id = :status_id, branch_id = :branch_id, price = :price, rooms = :rooms,
+                  updated_at = NOW(), address = :address WHERE id = :id";
 
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':user_id', $user_id);
@@ -104,9 +82,9 @@ class Ads
         $stmt->bindParam(':address', $address);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':rooms', $rooms);
-        $stmt->execute();
+        $stmt->bindParam(':id', $id);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->execute();
     }
 
     #[NoReturn] public function deleteAds(int $id): void
@@ -119,4 +97,18 @@ class Ads
         redirect('/');
     }
 
+    public function searchWithAds(string|null $phrase = null, int|null $branch = null, int|null $min = 0, int|null $max = PHP_INT_MAX): false|array
+    {
+//        if ($min AND $max)
+
+        $query = "SELECT * FROM ads WHERE title LIKE :phrase OR description LIKE :phrase AND branch_id = :branch AND BETWEEN :min AND :max";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':min', $min);
+        $stmt->bindParam(':max', $max);
+        $stmt->bindParam(':phrase', $phrase);
+        $stmt->bindParam(':branch', $branch);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }

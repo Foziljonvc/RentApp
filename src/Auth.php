@@ -2,6 +2,7 @@
 
 namespace Shohjahon\RentSrc;
 use PDO;
+use Shohjahon\RentSrc\enum\Roles;
 
 class Auth
 {
@@ -23,12 +24,12 @@ class Auth
         $stmt->execute(['id' => $user['id']]);
         $userWithRoles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (password_verify($password, $user['password'])) {
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['password'] = $user['password'];
+            $_SESSION['id'] = $user['id'];
             if ($userWithRoles[0]['role_id'] == Roles::ADMIN->value) {
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['password'] = $user['password'];
-                $_SESSION['id'] = $user['id'];
                 $_SESSION['role_id'] = $userWithRoles[0]['role_id'];
-                redirect('/profile');
+                redirect('/admin');
             }
             return true;
         }

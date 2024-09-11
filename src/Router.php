@@ -16,11 +16,16 @@ class Router
         $this->updates = json_decode(file_get_contents('php://input'));
     }
 
-    public function getResourceName(): string
+    public function getResourceName(string $name): bool
     {
         $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $path = explode('/', $uri);
-        return $path[count($path) - 2];
+        $path_name = $path[count($path) - 2];
+
+        if ($path_name === $name) {
+            return true;
+        }
+        return false;
     }
 
     public function getResourceId(): false|int

@@ -1,7 +1,11 @@
 <?php loadPartials(path: 'header', loadFromPublic: false); ?>
 <div class="page-wrapper toggled">
 <!-- sidebar-wrapper  -->
-<?php loadPartials(path: 'navbar', loadFromPublic: false); ?>
+<?php
+    if (isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])) {
+        loadPartials(path: 'navbar', loadFromPublic: false);
+    }
+?>
 <!-- Start Page Content -->
 <main class="page-content bg-gray-50 dark:bg-slate-800">
 <!-- Top Header -->
@@ -19,9 +23,11 @@
             <!-- Logo -->
 
             <!-- show or close sidebar -->
-            <a id="close-sidebar" class="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-md" href="javascript:void(0)">
-                <i data-feather="menu" class="size-4"></i>
-            </a>
+            <?php if (isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])):?>
+                <a id="close-sidebar" class="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-md" href="javascript:void(0)">
+                    <i data-feather="menu" class="size-4"></i>
+                </a>
+            <?php endif; ?>
             <!-- show or close sidebar -->
 
             <!-- Searchbar -->
@@ -60,7 +66,7 @@
             </li>
             <!-- Country Dropdown -->
 
-            <!-- Notification Dropdown -->
+<!--             Notification Dropdown-->
             <li class="dropdown inline-block relative">
                 <button data-dropdown-toggle="dropdown" class="dropdown-toggle size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-md" type="button">
                     <i data-feather="bell" class="size-4"></i>
@@ -148,7 +154,10 @@
                 <div class="dropdown-menu absolute end-0 m-0 mt-4 z-10 w-44 rounded-md overflow-hidden bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 hidden" onclick="event.stopPropagation();">
                     <ul class="py-2 text-start">
                         <li>
-                            <a href="profile.html" class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i class="mdi mdi-account-outline me-2"></i>Profile</a>
+                            <a href="/" class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i class="mdi mdi-home-outline me-2"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="/admin" class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i class="mdi mdi-account-outline me-2"></i>Admin</a>
                         </li>
                         <li>
                             <a href="chat.html" class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i class="mdi mdi-chat-outline me-2"></i>Chat</a>
@@ -197,7 +206,7 @@
                             </div>
 
                             <div class="mt-4">
-                                <h5 class="text-lg font-semibold"><?= $_SESSION['username']; ?></h5>
+                                <h5 class="text-lg font-semibold"><?= (new \Shohjahon\RentSrc\Session())->getSession()['username']; ?></h5>
                                 <p class="text-slate-400">calvin@hotmail.com</p>
                             </div>
                         </div>
@@ -282,9 +291,10 @@
                                         <img src="../assets/images/ads/<?= $ad->image?>" alt="">
 
                                         <div class="absolute top-4 end-4">
-                                            <a href="javascript:void(0)"
-                                               class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
-                                                        class="mdi mdi-heart text-[20px]"></i></a>
+                                            <a href="/ads/update/<?= $ad->id ?>"
+                                               class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-black dark:text-white">
+                                                <i class="mdi mdi-pencil text-[20px]"></i>
+                                            </a>
                                         </div>
                                     </div>
 
